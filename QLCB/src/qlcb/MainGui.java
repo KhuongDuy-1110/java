@@ -1,45 +1,56 @@
 package qlcb;
 
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-import javafx.scene.input.KeyCombination;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import java.awt.event.*;
 import java.awt.*;
-import javax.swing.*;
+
 public class MainGui extends javax.swing.JFrame {
 
     /**
      * Creates new form MainGui
      */
     private JPopupMenu popup;
-    public MainGui() {
+    String type;
+
+    public MainGui(String type) {
         initComponents();
         setTitle("Main");
-        Container contentPane = getContentPane() ;
+        this.type = type;
+
+        Boolean state = ("ADMIN".equals(type));
+        tabNhapDuLieu.setEnabled(state);
+        itemNguoiDung.setEnabled(state);
+        itemTimKiemNgDung.setEnabled(state);
+
+        Container contentPane = getContentPane();
         popup = new JPopupMenu();
         // add menu items to popup
         popup.add(new JMenuItem("Hệ thống"));
         popup.add(new JMenuItem("Nhập dữ liệu"));
         popup.add(new JMenuItem("Tìm kiếm"));
         contentPane.addMouseListener(new MouseAdapter() {
-           public void mouseReleased(MouseEvent me) {
-              showPopup(me);
-           }
-        }) ;
+            public void mouseReleased(MouseEvent me) {
+                showPopup(me);
+            }
+        });
         //setSize(375, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
+    public MainGui() {
+    }
+
     void showPopup(MouseEvent me) {
-      if(me.isPopupTrigger())
-         popup.show(me.getComponent(), me.getX(), me.getY());
-   }
+        if (me.isPopupTrigger()) {
+            popup.show(me.getComponent(), me.getX(), me.getY());
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,18 +73,18 @@ public class MainGui extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        m1 = new javax.swing.JMenu();
+        tabHeThong = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        tabNhapDuLieu = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        tabDanhSach = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        itemNguoiDung = new javax.swing.JMenuItem();
+        tabTimKiem = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        itemTimKiemNgDung = new javax.swing.JMenuItem();
+        tabTroGiup = new javax.swing.JMenu();
 
         jLabel1.setText("jLabel1");
 
@@ -138,10 +149,10 @@ public class MainGui extends javax.swing.JFrame {
         jMenuBar1.setInheritsPopupMenu(true);
         jMenuBar1.setPreferredSize(new java.awt.Dimension(338, 40));
 
-        m1.setMnemonic('H');
-        m1.setText(" Hệ Thống |");
-        m1.setToolTipText("");
-        m1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tabHeThong.setMnemonic('H');
+        tabHeThong.setText(" Hệ Thống |");
+        tabHeThong.setToolTipText("");
+        tabHeThong.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMenuItem1.setText("Thoát");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -149,13 +160,13 @@ public class MainGui extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        m1.add(jMenuItem1);
+        tabHeThong.add(jMenuItem1);
 
-        jMenuBar1.add(m1);
+        jMenuBar1.add(tabHeThong);
 
-        jMenu2.setMnemonic('N');
-        jMenu2.setText("Nhập Dữ Liệu |");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tabNhapDuLieu.setMnemonic('N');
+        tabNhapDuLieu.setText("Nhập Dữ Liệu |");
+        tabNhapDuLieu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMenuItem2.setText("Thêm cán bộ");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +174,7 @@ public class MainGui extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        tabNhapDuLieu.add(jMenuItem2);
 
         jMenuItem3.setText("Thêm người dùng");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -171,13 +182,13 @@ public class MainGui extends javax.swing.JFrame {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        tabNhapDuLieu.add(jMenuItem3);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(tabNhapDuLieu);
 
-        jMenu3.setMnemonic('D');
-        jMenu3.setText("Danh sách |");
-        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tabDanhSach.setMnemonic('D');
+        tabDanhSach.setText("Danh sách |");
+        tabDanhSach.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMenuItem4.setText("Cán bộ");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -185,21 +196,21 @@ public class MainGui extends javax.swing.JFrame {
                 jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem4);
+        tabDanhSach.add(jMenuItem4);
 
-        jMenuItem5.setText("Người dùng");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        itemNguoiDung.setText("Người dùng");
+        itemNguoiDung.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                itemNguoiDungActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem5);
+        tabDanhSach.add(itemNguoiDung);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(tabDanhSach);
 
-        jMenu4.setMnemonic('T');
-        jMenu4.setText("Tìm kiếm |");
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tabTimKiem.setMnemonic('T');
+        tabTimKiem.setText("Tìm kiếm |");
+        tabTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMenuItem6.setText("Cán bộ");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -207,17 +218,17 @@ public class MainGui extends javax.swing.JFrame {
                 jMenuItem6ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem6);
+        tabTimKiem.add(jMenuItem6);
 
-        jMenuItem7.setText("Người dùng");
-        jMenu4.add(jMenuItem7);
+        itemTimKiemNgDung.setText("Người dùng");
+        tabTimKiem.add(itemTimKiemNgDung);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(tabTimKiem);
 
-        jMenu1.setMnemonic('p');
-        jMenu1.setText("Trợ giúp");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuBar1.add(jMenu1);
+        tabTroGiup.setMnemonic('p');
+        tabTroGiup.setText("Trợ giúp");
+        tabTroGiup.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuBar1.add(tabTroGiup);
 
         setJMenuBar(jMenuBar1);
 
@@ -241,7 +252,7 @@ public class MainGui extends javax.swing.JFrame {
 
     private void jPopupMenu1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPopupMenu1MouseReleased
         // TODO add your handling code here:
-      
+
     }//GEN-LAST:event_jPopupMenu1MouseReleased
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -256,12 +267,11 @@ public class MainGui extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         new GenInforGui().setVisible(true);
-        new MainGui().setVisible(false);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void itemNguoiDungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNguoiDungActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_itemNguoiDungActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         new ShowInfoGui().setVisible(true);
@@ -280,41 +290,41 @@ public class MainGui extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
-
-        public static void main(String args[]) {
+    public static void main(String args[]) {
 //            new MainGui();
-            /* Set the Nimbus look and feel */
-            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-             */
-            try {
-                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                        break;
-                    }
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
                 }
-            } catch (ClassNotFoundException ex) {
-                java.util.logging.Logger.getLogger(MainGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
-                java.util.logging.Logger.getLogger(MainGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                java.util.logging.Logger.getLogger(MainGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-                java.util.logging.Logger.getLogger(MainGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
-            //</editor-fold>
-
-            /* Create and display the form */
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new MainGui().setVisible(true);
-                }
-            });
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainGui().setVisible(true);
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itemNguoiDung;
+    private javax.swing.JMenuItem itemTimKiemNgDung;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -322,23 +332,21 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
-    private javax.swing.JMenu m1;
+    private javax.swing.JMenu tabDanhSach;
+    private javax.swing.JMenu tabHeThong;
+    private javax.swing.JMenu tabNhapDuLieu;
+    private javax.swing.JMenu tabTimKiem;
+    private javax.swing.JMenu tabTroGiup;
     // End of variables declaration//GEN-END:variables
 }

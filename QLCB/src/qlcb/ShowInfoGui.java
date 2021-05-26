@@ -9,13 +9,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ShowInfoGui extends javax.swing.JFrame {
-    
+
     public ShowInfoGui() {
         initComponents();
-        
     }
-    
- 
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -123,46 +121,46 @@ public class ShowInfoGui extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
+
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        try{
-                String url = "jdbc:mysql://localhost:3306/java_ktpm";
-                String username = "root";
-                Connection conn = (Connection) DriverManager.getConnection(url, username, "");
-                String sql = "SELECT * FROM staffs";
-                if(txtTitle.getText().length() > 0){
-                    sql = "SELECT * FROM staffs Where name Like '%" + txtTitle.getText() + "%'";
-                }
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery();
-                Vector data = null;
-                String header[] = {"Id", "Name", "Birth","Gender","Address","Type","Level","Major","Work"};
-                DefaultTableModel tblModel = new DefaultTableModel(header, 0);
-                if(rs.isBeforeFirst() == false){
-                    JOptionPane.showMessageDialog(this, "Check your name search or This person is not avaible !");
-                    return;
-                }
-                while(rs.next()){
-                    
-                    data = new Vector();
-                    data.add(rs.getInt("id"));
-                    data.add(rs.getString("name"));
-                    data.add(rs.getString("dob"));
-                    data.add(rs.getInt("gender"));
-                    data.add(rs.getString("address"));
-                    data.add(rs.getString("type"));
-                    data.add(rs.getInt("level"));
-                    data.add(rs.getString("major"));
-                    data.add(rs.getString("work"));
-                    tblModel.addRow(data);
-                    
-                }
-                tbResult.setModel(tblModel);
-            }catch(Exception e){
-                System.out.println(e);
+
+        try {
+            String url = "jdbc:mysql://localhost:3306/java_ktpm";
+            String username = "root";
+            Connection conn = (Connection) DriverManager.getConnection(url, username, "");
+            String sql = "SELECT * FROM staffs";
+            if (txtTitle.getText().length() > 0) {
+                sql = "SELECT * FROM staffs Where name Like '%" + txtTitle.getText() + "%'";
             }
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            Vector data = null;
+            String header[] = {"Id", "Name", "Birth", "Gender", "Address", "Type", "Level", "Major", "Work"};
+            DefaultTableModel tblModel = new DefaultTableModel(header, 0);
+            if (rs.isBeforeFirst() == false) {
+                JOptionPane.showMessageDialog(this, "Check your name search or This person is not avaible !");
+                return;
+            }
+            while (rs.next()) {
+
+                data = new Vector();
+                data.add(rs.getInt("id"));
+                data.add(rs.getString("name"));
+                data.add(rs.getString("dob"));
+                data.add(rs.getInt("gender"));
+                data.add(rs.getString("address"));
+                data.add(rs.getString("type"));
+                data.add(rs.getInt("level"));
+                data.add(rs.getString("major"));
+                data.add(rs.getString("work"));
+                tblModel.addRow(data);
+
+            }
+            tbResult.setModel(tblModel);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

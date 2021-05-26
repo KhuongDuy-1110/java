@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package qlcb;
-import java.security.MessageDigest;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Khuong
- */
 public class LoginGui extends javax.swing.JFrame {
 
     /**
@@ -38,9 +28,9 @@ public class LoginGui extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtPass = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btLogin = new javax.swing.JButton();
+        txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("loginGui"); // NOI18N
@@ -81,11 +71,11 @@ public class LoginGui extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(74, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3)
-                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
                     .addComponent(jLabel4)
-                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword))
                 .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
@@ -100,10 +90,10 @@ public class LoginGui extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(114, 114, 114)
                 .addComponent(btLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -111,28 +101,29 @@ public class LoginGui extends javax.swing.JFrame {
 
     private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
         // TODO add your handling code here:
-        if(txtUser.getText().equals("")){
+        if (txtUser.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền user nam or email !");
-        }else if(txtPass.getText().equals("")){
-            JOptionPane.showMessageDialog(this,"Vui lòng điên password !");
-        }else{
-            try{
-                String url = "jdbc:mysql://localhost:3306/java_ktpm";
+        } else if (String.valueOf(txtPassword.getPassword()).equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng điên password !");
+        } else {
+            try {
+                String url = "jdbc:mysql://localhost:3000/java_ktpm";
                 String username = "root";
-                Connection conn = (Connection) DriverManager.getConnection(url, username, "");
+                Connection conn = (Connection) DriverManager.getConnection(url, username, "1231");
                 String sql = "SELECT * FROM users\n" + "WHERE email=? AND password=?";
+
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, txtUser.getText());
-                ps.setString(2, txtPass.getText());
+                ps.setString(2, String.valueOf(txtPassword.getPassword()));
                 ResultSet rs = ps.executeQuery();
-                if(rs.next()){
+                if (rs.next()) {
+                    String type = rs.getString("type");
                     this.setVisible(false);
-                    new MainGui().setVisible(true);
-                }
-                else{
+                    new MainGui(type).setVisible(true);
+                } else {
                     JOptionPane.showMessageDialog(this, "Failure");
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
             }
         }
@@ -167,10 +158,8 @@ public class LoginGui extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginGui().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LoginGui().setVisible(true);
         });
     }
 
@@ -179,7 +168,7 @@ public class LoginGui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField txtPass;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

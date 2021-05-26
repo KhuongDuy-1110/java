@@ -3,12 +3,9 @@ package qlcb;
 import java.io.*;
 
 class CanBo {
-
     protected String hvt, dc, gt;
     protected int ns;
-
-    CanBo() {
-    }
+    CanBo() {}
 }
 
 class CongNhan extends CanBo {
@@ -31,8 +28,7 @@ class KySu extends CanBo {
 
     protected String nganhdt;
 
-    KySu() {
-    }
+    KySu() {}
 }
 
 class QLCB {
@@ -45,11 +41,7 @@ class QLCB {
     }
 
     static boolean ssxau(String s1, String s2) {
-        if (s1.equalsIgnoreCase(s2)) {
-            return false;
-
-        }
-        else return true;
+        return !s1.equalsIgnoreCase(s2);
     }
 
     static int nhapnn() throws IOException {
@@ -61,8 +53,7 @@ class QLCB {
                     && ssxau(nn, "ks")) {
                 System.out.print("Ban chi co the nhap nv / cn / ks: ");
             }
-            } 
-        while (ssxau(nn, "nv") && ssxau(nn, "cn"
+        } while (ssxau(nn, "nv") && ssxau(nn, "cn"
         ) && ssxau(nn, "ks"));
         if (ssxau(nn, "nv") == false) {
             return 1;
@@ -85,43 +76,41 @@ class QLCB {
     static void hienthinv(NhanVien nv) {
         hienthi(nv);
         System.out.println("Cong Viec: " + nv.congviec);
- System.out.println("----------------------- ");
- }
- static void hienthicn(CongNhan cn) {
+        System.out.println("----------------------- ");
+    }
+
+    static void hienthicn(CongNhan cn) {
         hienthi(cn);
         System.out.println("Bac: " + cn.bac);
         System.out.println("----------------------- ");
- }
- static void hienthiks(KySu ks) {
+    }
+
+    static void hienthiks(KySu ks) {
         hienthi(ks);
         System.out.println("Nghanh dao tao: " + ks.nganhdt);
         System.out.println("----------------------- ");
- }
- static boolean timkiem(CanBo cb, String ht) throws
-            IOException {
-        if (cb.hvt.equalsIgnoreCase(ht)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
-    public static void main(String args[]) throws IOException
- {
- int i, scb, scn = 0, snv = 0, sks = 0, nn, ns;
+    static boolean timkiem(CanBo cb, String ht) throws
+            IOException {
+        return cb.hvt.equalsIgnoreCase(ht);
+    }
+
+    public static void main(String args[]) throws IOException {
+        int i, scb, scn = 0, snv = 0, sks = 0, nn, ns;
         String hvt, gt, dc;
         System.out.print("So can bo: ");
-        scb = Integer.valueOf(nhapgt()).intValue();
+        scb = Integer.parseInt(nhapgt());
         NhanVien NV[] = new NhanVien[scb];
         CongNhan CN[] = new CongNhan[scb];
         KySu KS[] = new KySu[scb];
         System.out.println(
-        "Nhap thong tin cho cac CB: ");
- for (i = 0; i < scb; i++) {
+                "Nhap thong tin cho cac CB: ");
+        for (i = 0; i < scb; i++) {
             System.out.print("Ho ten: ");
             hvt = nhapgt();
             System.out.print("Nam sinh: ");
-            ns = Integer.valueOf(nhapgt()).intValue();
+            ns = Integer.parseInt(nhapgt());
             System.out.print("Gioi tinh: ");
             gt = nhapgt();
             System.out.print("Dia chi: ");
@@ -135,8 +124,8 @@ class QLCB {
                     NV[snv].ns = ns;
                     NV[snv].dc = dc;
                     System.out.print(
-                    "Cong viec: ");
- NV[snv].congviec = nhapgt();
+                            "Cong viec: ");
+                    NV[snv].congviec = nhapgt();
                     snv++;
                     break;
                 case 2:
@@ -157,8 +146,8 @@ class QLCB {
                     KS[sks].ns = ns;
                     KS[sks].dc = dc;
                     System.out.print(
-                    "Nghanh dao tao: ");
- KS[sks].nganhdt = nhapgt();
+                            "Nghanh dao tao: ");
+                    KS[sks].nganhdt = nhapgt();
                     sks++;
                     break;
                 default:
@@ -166,8 +155,8 @@ class QLCB {
             }
         }
         System.out.println(
-        "--------HIEN THI------");
- for (i = 0; i < scb; i++) {
+                "--------HIEN THI------");
+        for (i = 0; i < scb; i++) {
             if (NV[i] != null) {
                 hienthinv(NV[i]);
             }
@@ -180,17 +169,20 @@ class QLCB {
         }
         String ht;
         System.out.println(
-        "--------TIM KIEM-------");
- System.out.print(
-        "Moi ban nhap ho ten can tim: ");
+                "--------TIM KIEM-------");
+        System.out.print(
+                "Moi ban nhap ho ten can tim: ");
         ht = nhapgt();
         for (i = 0; i < scb; i++) {
-            if (NV[i] != null && timkiem(NV[i], ht))
+            if (NV[i] != null && timkiem(NV[i], ht)) {
                 hienthinv(NV[i]);
-            if (CN[i] != null && timkiem(CN[i], ht))
+            }
+            if (CN[i] != null && timkiem(CN[i], ht)) {
                 hienthicn(CN[i]);
-            if (KS[i] != null && timkiem(KS[i], ht))
+            }
+            if (KS[i] != null && timkiem(KS[i], ht)) {
                 hienthiks(KS[i]);
+            }
         }
     }
 }

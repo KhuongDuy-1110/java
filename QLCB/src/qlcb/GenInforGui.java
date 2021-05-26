@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package qlcb;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-/**
- *
- * @author Khuong
- */
+
 public class GenInforGui extends javax.swing.JFrame {
 
     /**
@@ -179,9 +169,6 @@ public class GenInforGui extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(sp1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3)
@@ -200,21 +187,22 @@ public class GenInforGui extends javax.swing.JFrame {
                                     .addComponent(txtHoTen)
                                     .addComponent(txtDiaChi)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtNganh, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtCongViec, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(44, 44, 44))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNganh, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                                    .addComponent(txtCongViec))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(249, 249, 249))))
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(sp1))
+                        .addGap(261, 261, 261))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,7 +256,7 @@ public class GenInforGui extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void cbGen3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbGen3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbGen3ActionPerformed
@@ -280,20 +268,17 @@ public class GenInforGui extends javax.swing.JFrame {
     private void typeEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeEnterActionPerformed
         // TODO add your handling code here:
         String value = type.getSelectedItem().toString();
-        if(value == "Công Nhân")
-        {
+        if ("Công Nhân".equals(value)) {
             txtCongViec.setEnabled(false);
             txtNganh.setEnabled(false);
-            sp1.setEnabled(true);   
+            sp1.setEnabled(true);
         }
-        if(value == "Nhân Viên")
-        {
+        if ("Nhân Viên".equals(value)) {
             sp1.setEnabled(false);
             txtNganh.setEnabled(false);
             txtCongViec.setEnabled(true);
         }
-        if (value == "Kỹ Sư")
-        {
+        if ("Kỹ Sư".equals(value)) {
             sp1.setEnabled(false);
             txtCongViec.setEnabled(false);
             txtNganh.setEnabled(true);
@@ -305,46 +290,53 @@ public class GenInforGui extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCongViecActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try{
-                String url = "jdbc:mysql://localhost:3306/java_ktpm";
-                String username = "root";
-                Connection conn = (Connection) DriverManager.getConnection(url, username, "");
-                String sql = "INSERT INTO staffs(name, dob, gender, address, type, level, major, work)"+"VALUES(?,?,?,?,?,?,?,?)";
+        try {
+            String url = "jdbc:mysql://localhost:3000/java_ktpm";
+            String username = "root";
+            try (Connection conn = (Connection) DriverManager.getConnection(url, username, "1231")) {
+                String sql = "INSERT INTO staffs(name, dob, gender, address, type, level, major, work)" + "VALUES(?,?,?,?,?,?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 int gen = 2;
                 int sp1Val = (Integer) sp1.getValue();
                 ps.setString(1, txtHoTen.getText());
                 ps.setString(2, txtNamSinh.getText());
-                if(cbGen1.isSelected())
+                if (cbGen1.isSelected()) {
                     gen = 0;
-                if (cbGen2.isSelected())
+                }
+                if (cbGen2.isSelected()) {
                     gen = 1;
-                if (cbGen3.isSelected())
+                }
+                if (cbGen3.isSelected()) {
                     gen = 2;
+                }
                 ps.setInt(3, gen);
-                ps.setString(4,txtDiaChi.getText());
+                ps.setString(4, txtDiaChi.getText());
                 String value = type.getSelectedItem().toString();
-                    if(value == "Công Nhân")
-                        ps.setString(5, value);
-                    if(value == "Nhân Viên")
-                        ps.setString(5, value);
-                    if (value == "Kỹ Sư")
-                        ps.setString(5, value);
+                if ("Công Nhân".equals(value)) {
+                    ps.setString(5, value);
+                }
+                if ("Nhân Viên".equals(value)) {
+                    ps.setString(5, value);
+                }
+                if ("Kỹ Sư".equals(value)) {
+                    ps.setString(5, value);
+                }
                 ps.setInt(6, sp1Val);
-                ps.setString(7,txtNganh.getText());
-                ps.setString(8,txtCongViec.getText());
+                ps.setString(7, txtNganh.getText());
+                ps.setString(8, txtCongViec.getText());
                 ps.executeUpdate();
-                conn.close();
-            }catch(Exception e){
-                System.out.println(e);
+                JOptionPane.showMessageDialog(this, "Thêm bản ghi thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Thêm bản ghi lõi: " + e.toString(), "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         setVisible(false);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */
@@ -361,23 +353,16 @@ public class GenInforGui extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GenInforGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GenInforGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GenInforGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GenInforGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
+        //</editor-fold>
+
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GenInforGui().setVisible(true);
-                
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new GenInforGui().setVisible(true);
         });
     }
 
