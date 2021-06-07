@@ -6,6 +6,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import java.awt.event.*;
 import java.awt.*;
+import javax.swing.AbstractAction;
 
 public class MainGui extends javax.swing.JFrame {
 
@@ -26,9 +27,22 @@ public class MainGui extends javax.swing.JFrame {
         Container contentPane = getContentPane();
         popup = new JPopupMenu();
         // add menu items to popup
-        popup.add(new JMenuItem("Hệ thống"));
-        popup.add(new JMenuItem("Nhập dữ liệu"));
-        popup.add(new JMenuItem("Tìm kiếm"));
+        popup.add(new JMenuItem(new AbstractAction("Nhập cán bộ") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GenInforGui frame = new GenInforGui();
+                frame.setVisible(true);
+                frame.setAlwaysOnTop(true);
+            }
+        }));
+        popup.add(new JMenuItem(new AbstractAction("Danh sách") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowInfoGui frame = new ShowInfoGui();
+                frame.setVisible(true);
+                frame.setAlwaysOnTop(true);
+            }
+        }));
         contentPane.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent me) {
                 showPopup(me);
