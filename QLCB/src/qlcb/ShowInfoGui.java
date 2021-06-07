@@ -128,7 +128,7 @@ public class ShowInfoGui extends javax.swing.JFrame {
         try {
             String url = "jdbc:mysql://localhost:3306/java_ktpm";
             String username = "root";
-            Connection conn = (Connection) DriverManager.getConnection(url, username, "");
+            Connection conn = (Connection) DriverManager.getConnection(url, username, "1111");
             String sql = "SELECT * FROM staffs";
             if (txtTitle.getText().length() > 0) {
                 sql = "SELECT * FROM staffs Where name Like '%" + txtTitle.getText() + "%'";

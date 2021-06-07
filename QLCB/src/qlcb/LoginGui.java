@@ -107,9 +107,9 @@ public class LoginGui extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng điên password !");
         } else {
             try {
-                String url = "jdbc:mysql://localhost:3000/java_ktpm";
+                String url = "jdbc:mysql://localhost:3306/java_ktpm";
                 String username = "root";
-                Connection conn = (Connection) DriverManager.getConnection(url, username, "1231");
+                Connection conn = (Connection) DriverManager.getConnection(url, username, "1111");
                 String sql = "SELECT * FROM users\n" + "WHERE email=? AND password=?";
 
                 PreparedStatement ps = conn.prepareStatement(sql);

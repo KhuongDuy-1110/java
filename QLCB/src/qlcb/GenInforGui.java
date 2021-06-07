@@ -291,9 +291,9 @@ public class GenInforGui extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            String url = "jdbc:mysql://localhost:3000/java_ktpm";
+            String url = "jdbc:mysql://localhost:3306/java_ktpm";
             String username = "root";
-            try (Connection conn = (Connection) DriverManager.getConnection(url, username, "1231")) {
+            try (Connection conn = (Connection) DriverManager.getConnection(url, username, "1111")) {
                 String sql = "INSERT INTO staffs(name, dob, gender, address, type, level, major, work)" + "VALUES(?,?,?,?,?,?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 int gen = 2;

@@ -22,8 +22,6 @@ public class MainGui extends javax.swing.JFrame {
 
         Boolean state = ("ADMIN".equals(type));
         tabNhapDuLieu.setEnabled(state);
-        itemNguoiDung.setEnabled(state);
-        itemTimKiemNgDung.setEnabled(state);
 
         Container contentPane = getContentPane();
         popup = new JPopupMenu();
@@ -77,13 +75,8 @@ public class MainGui extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         tabNhapDuLieu = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         tabDanhSach = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
-        itemNguoiDung = new javax.swing.JMenuItem();
-        tabTimKiem = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        itemTimKiemNgDung = new javax.swing.JMenuItem();
         tabTroGiup = new javax.swing.JMenu();
 
         jLabel1.setText("jLabel1");
@@ -176,14 +169,6 @@ public class MainGui extends javax.swing.JFrame {
         });
         tabNhapDuLieu.add(jMenuItem2);
 
-        jMenuItem3.setText("Thêm người dùng");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        tabNhapDuLieu.add(jMenuItem3);
-
         jMenuBar1.add(tabNhapDuLieu);
 
         tabDanhSach.setMnemonic('D');
@@ -198,32 +183,7 @@ public class MainGui extends javax.swing.JFrame {
         });
         tabDanhSach.add(jMenuItem4);
 
-        itemNguoiDung.setText("Người dùng");
-        itemNguoiDung.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemNguoiDungActionPerformed(evt);
-            }
-        });
-        tabDanhSach.add(itemNguoiDung);
-
         jMenuBar1.add(tabDanhSach);
-
-        tabTimKiem.setMnemonic('T');
-        tabTimKiem.setText("Tìm kiếm |");
-        tabTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        jMenuItem6.setText("Cán bộ");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        tabTimKiem.add(jMenuItem6);
-
-        itemTimKiemNgDung.setText("Người dùng");
-        tabTimKiem.add(itemTimKiemNgDung);
-
-        jMenuBar1.add(tabTimKiem);
 
         tabTroGiup.setMnemonic('p');
         tabTroGiup.setText("Trợ giúp");
@@ -261,25 +221,13 @@ public class MainGui extends javax.swing.JFrame {
         new LoginGui().setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         new GenInforGui().setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void itemNguoiDungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNguoiDungActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_itemNguoiDungActionPerformed
-
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         new ShowInfoGui().setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        new ShowInfoGui().setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         setVisible(false);
@@ -323,8 +271,6 @@ public class MainGui extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem itemNguoiDung;
-    private javax.swing.JMenuItem itemTimKiemNgDung;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -335,9 +281,7 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
@@ -346,7 +290,6 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JMenu tabDanhSach;
     private javax.swing.JMenu tabHeThong;
     private javax.swing.JMenu tabNhapDuLieu;
-    private javax.swing.JMenu tabTimKiem;
     private javax.swing.JMenu tabTroGiup;
     // End of variables declaration//GEN-END:variables
 }
